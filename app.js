@@ -20,6 +20,8 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.listen(2000, console.log('Express server is opened on port 2000.'));
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
 app.use(compression());
