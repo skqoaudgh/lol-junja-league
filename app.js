@@ -9,6 +9,8 @@ const dotenv = require('dotenv').config();
 const Player = require('./model/Player');
 const Game = require('./model/Game');
 
+const { isNumber } = require('./util');
+
 const app = express();
 
 mongoose.connect(process.env.MONGO_URL, {
@@ -29,7 +31,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res, next) => {
-  const players = await Player.find().sort('name');
+  const players = await Player.find().sort('-score');
   const games = await Game.find();
   res.render('index.ejs', { players, games });
 });
@@ -37,32 +39,41 @@ app.get('/', async (req, res, next) => {
 app.post('/', async (req, res, next) => {
   try {
     const { home, homeScore, away, awayScore } = req.body;
-    const winner = awayScore > homeScore ? away : home;
-    const loser = awayScore > homeScore ? home : away;
+    if (!isNumber(homeScore) || !isNumber(awayScore)) {
+      res.redirect('/');
+    } else {
+      const homePlayer = await Player.findOne({ name: home });
+      const awayPlayer = await Player.findOne({ name: away });
 
-    // Win Player
-    await Player.findOneAndUpdate(
-      { name: winner },
-      { $inc: { win: 1, score: 2 } }
-    );
+      if (!homePlayer || !awayPlayer) {
+        res.redirect('/');
+      } else {
+        const winner = homeScore > awayScore ? homePlayer : awayPlayer;
+        const loser = homeScore > awayScore ? awayPlayer : homePlayer;
 
-    // Lose Player
-    await Player.findOneAndUpdate(
-      { name: loser },
-      { $inc: { lose: 1, score: 1 } }
-    );
+        // Win Player
+        winner.win = winner.win + 1;
+        winner.score = winner.score + 2;
+        await winner.save();
 
-    // Game
-    const game = new Game({
-      home,
-      away,
-      homeScore,
-      awayScore,
-      winner,
-    });
-    await game.save();
+        // Lose Player
+        loser.lose = loser.win + 1;
+        loser.score = loser.score + 1;
+        await loser.save();
 
-    res.redirect('/');
+        // Game
+        const game = new Game({
+          home: home,
+          away: away,
+          homeScore: Number(homeScore),
+          awayScore: Number(awayScore),
+          winner: winner.name,
+        });
+        await game.save();
+
+        res.redirect('/');
+      }
+    }
   } catch (err) {
     console.error(err);
   }
@@ -71,15 +82,20 @@ app.post('/', async (req, res, next) => {
 app.post('/player', async (req, res, next) => {
   try {
     const { name } = req.body;
-    const player = new Game({
-      name,
-      win: 0,
-      lose: 0,
-      score: 0,
-    });
-    await player.save();
+    const isExist = await Player.find({ name: name });
+    if (isExist.length > 0) {
+      res.redirect('/');
+    } else {
+      const player = new Player({
+        name,
+        win: 0,
+        lose: 0,
+        score: 0,
+      });
+      await player.save();
 
-    res.redirect('/');
+      res.redirect('/');
+    }
   } catch (err) {
     console.error(err);
   }
