@@ -1,0 +1,43 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+header {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  background: #000;
+}
+
+header > span {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+header > span > small {
+  color: red;
+  font-size: 40px;
+  font-weight: 700;
+  border-radius: 20px;
+  padding: 6px 20px 6px 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+header > span:hover > small {
+  background: red;
+  color: #fff;
+}
+
+main {
+  background: #eeeeee;
+  width: 100%;
+  height: 90%;
+}
