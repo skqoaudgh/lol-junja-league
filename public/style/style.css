@@ -78,6 +78,10 @@ form span {
   color: #ff5252;
 }
 
-.modal-header {
+.detail-modal-header {
   border-bottom: none;
+}
+
+#rule {
+  float: right;
 }
