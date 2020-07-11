@@ -48,7 +48,7 @@ section {
   margin: 0 auto;
 }
 
-table {
+#table {
   margin-top: 60px;
 }
 
@@ -62,4 +62,22 @@ form span {
   text-transform: uppercase;
   margin-left: 8px;
   margin-right: 8px;
+}
+
+.detail button {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 0;
+}
+
+.win {
+  color: #40c4ff;
+}
+
+.lose {
+  color: #ff5252;
+}
+
+.modal-header {
+  border-bottom: none;
 }

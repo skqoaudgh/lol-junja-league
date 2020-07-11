@@ -25,12 +25,13 @@
         <button type="button" class="btn btn-primary" id="register">선수 등록</button>
         <button type="button" class="btn btn-danger" id="reset_player">선수 목록 초기화</button>
         <button type="button" class="btn btn-danger" id="reset_game">경기 기록 초기화</button>
-        <table class="table">
+        <table class="table" id="table">
           <tr>
             <th scope="col">이름</th>
             <th scope="col">승리</th>
             <th scope="col">패배</th>
             <th scope="col">점수</th>
+            <th scope="col"></th>
           </tr>
           <% if(players) { %>
             <% for(let i=0, j=players.length; i<j; i++) { %>
@@ -39,6 +40,57 @@
               <td scope="row"><%= players[i].win %></td>
               <td scope="row"><%= players[i].lose %></td>
               <td scope="row"><%= players[i].score %></td>
+              <td scope="row" class="detail">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#detail<%= i %>">
+                  자세히
+                </button>
+                <div class="modal fade" id="detail<%= i %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><%= players[i].name %>의 경기표</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <% const myGames = games.filter(game => game.home === players[i].name || game.away === players[i].name); %>
+                        <% if(myGames.length > 0) { %>
+                          <table class="table">
+                            <% for(let p=0, q=myGames.length; p<q; p++) { %>
+                              <tr>
+                                <% const me = myGames[p].home === players[i].name ? myGames[p].home : myGames[p].away; %>
+                                <% const opp = myGames[p].home === players[i].name ? myGames[p].away : myGames[p].home; %>
+                                <% const meScore = myGames[p].home === players[i].name ? myGames[p].homeScore : myGames[p].awayScore; %>
+                                <% const oppScore = myGames[p].home === players[i].name ? myGames[p].awayScore : myGames[p].homeScore; %>
+                                <% const isWin = meScore > oppScore ? true : false; %>
+                                <th scope="row">
+                                  <%= me %> <span>(<%= meScore %>)</span>
+                                </th>
+                                <th scope="row">
+                                  <%= opp %> <span>(<%= oppScore %>)</span>
+                                </th>
+                                <th scope="row">
+                                  <% if(isWin) { %>
+                                    <span class="win">승</span>
+                                  <% } else { %>
+                                    <span class="lose">패</span>
+                                  <% } %>
+                                </th>
+                              </tr>
+                            <% } %>
+                          </table>
+                        <% } else { %>
+                          진행한 경기가 없습니다.
+                        <% } %>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </td>
             </tr>
             <% } %>
           <% } else { %>
@@ -71,4 +123,7 @@
     </main>
   </body>
   <script src="./js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </html>
