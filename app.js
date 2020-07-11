@@ -24,7 +24,7 @@ app.engine('html', require('ejs').renderFile);
 
 app.use(compression());
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(favicon(path.join(__dirname, 'public/assets/favicon.ico')));
 
 app.use(express.json());
