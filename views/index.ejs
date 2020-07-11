@@ -3,6 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./style/style.css" />
     <link
       rel="stylesheet"
@@ -14,6 +20,53 @@
     <header>
       <span>리그 오브 레전드 롤 순위 결정전 <small>준자리그</small></span>
     </header>
-    <main></main>
+    <main>
+      <section>
+        <button type="button" class="btn btn-primary" id="register">선수 등록</button>
+        <table class="table">
+          <tr>
+            <th scope="col">이름</th>
+            <th scope="col">승리</th>
+            <th scope="col">패배</th>
+            <th scope="col">점수</th>
+          </tr>
+          <% if(players) { %>
+            <% for(let i=0, j=players.length; i<j; i++) { %>
+            <tr id="<%=i%>">
+              <th scope="row"><%= players[i].name %></th>
+              <td scope="row"><%= players[i].win %></td>
+              <td scope="row"><%= players[i].lose %></td>
+              <td scope="row"><%= players[i].score %></td>
+            </tr>
+            <% } %>
+          <% } else { %>
+          <tr>
+            <th scope="row">등록된 선수가 없습니다. 새로운 선수를 등록해주세요.</th>
+          </tr>
+        <% } %>
+        </table>
+        <form class="form-inline" action="/" method="POST">
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="homeName" class="sr-only">이름</label>
+            <input type="text" class="form-control" id="homeName" name="home" placeholder="이름">
+          </div>
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="homeScore" class="sr-only">점수</label>
+            <input type="text" class="form-control" id="homeScore" name="homeScore" placeholder="점수">
+          </div>
+          <span>vs</span>
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="awayName" class="sr-only">이름</label>
+            <input type="text" class="form-control" id="awayName" name="away" placeholder="이름">
+          </div>
+          <div class="form-group mx-sm-1 mb-2">
+            <label for="awayScore" class="sr-only">점수</label>
+            <input type="text" class="form-control" id="awayScore" name="awayScore" placeholder="점수">
+          </div>
+          <button type="submit" class="btn btn-info mb-2">경기 결과 등록</button>
+        </form>
+      </section>
+    </main>
   </body>
+  <script src="./js/script.js"></script>
 </html>

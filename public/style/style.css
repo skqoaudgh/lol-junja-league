@@ -40,4 +40,26 @@ main {
   background: #eeeeee;
   width: 100%;
   height: 90%;
+  padding-top: 50px;
+}
+
+section {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+table {
+  margin-top: 60px;
+}
+
+form {
+  margin-top: 60px;
+}
+
+form span {
+  font-weight: 900;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-left: 8px;
+  margin-right: 8px;
 }
