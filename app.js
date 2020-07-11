@@ -67,3 +67,20 @@ app.post('/', async (req, res, next) => {
     console.error(err);
   }
 });
+
+app.post('/player', async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    const player = new Game({
+      name,
+      win: 0,
+      lose: 0,
+      score: 0,
+    });
+    await player.save();
+
+    res.redirect('/');
+  } catch (err) {
+    console.error(err);
+  }
+});
