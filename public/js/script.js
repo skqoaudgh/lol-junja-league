@@ -1,4 +1,6 @@
 const registerBtn = document.getElementById('register');
+const resetPlayerBtn = document.getElementById('reset_player');
+const resetGameBtn = document.getElementById('reset_game');
 
 registerBtn.addEventListener('click', (e) => {
   const name = prompt('선수 이름을 입력하세요.');
@@ -21,4 +23,12 @@ registerBtn.addEventListener('click', (e) => {
     form.submit();
     document.body.removeChild(form);
   }
+});
+
+resetPlayerBtn.addEventListener('click', (e) => {
+  window.location.href = '/reset/players';
+});
+
+resetGameBtn.addEventListener('click', (e) => {
+  window.location.href = '/reset/games';
 });

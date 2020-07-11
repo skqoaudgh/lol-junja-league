@@ -100,3 +100,23 @@ app.post('/player', async (req, res, next) => {
     console.error(err);
   }
 });
+
+app.get('/reset/players', async (req, res, next) => {
+  await Player.deleteMany();
+  await Game.deleteMany();
+
+  res.redirect('/');
+});
+
+app.get('/reset/games', async (req, res, next) => {
+  await Game.deleteMany();
+  const players = await Player.find();
+  players.forEach(async (player) => {
+    player.win = 0;
+    player.lose = 0;
+    player.score = 0;
+    await player.save();
+  });
+
+  res.redirect('/');
+});
