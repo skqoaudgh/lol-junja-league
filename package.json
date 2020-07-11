@@ -1,0 +1,24 @@
+{
+  "name": "lol-junja-league",
+  "version": "1.0.0",
+  "description": "리그 오브 레전드 준자 리그 - 롤 순위 결정전",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skqoaudgh/lol-junja-league.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skqoaudgh/lol-junja-league/issues"
+  },
+  "homepage": "https://github.com/skqoaudgh/lol-junja-league#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.23"
+  }
+}
