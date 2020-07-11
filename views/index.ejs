@@ -22,10 +22,12 @@
     </header>
     <main>
       <section>
-        <button type="button" class="btn btn-primary" id="register">선수 등록</button>
-        <button type="button" class="btn btn-danger" id="reset_player">선수 목록 초기화</button>
-        <button type="button" class="btn btn-danger" id="reset_game">경기 기록 초기화</button>
-        <button type="button" class="btn btn-success" id="rule" data-toggle="modal" data-target="#ruleModal">리그 규칙</button>
+        <div class="button_container">
+          <button type="button" class="btn btn-primary" id="register">선수 등록</button>
+          <button type="button" class="btn btn-danger" id="reset_player">선수 목록 초기화</button>
+          <button type="button" class="btn btn-danger" id="reset_game">경기 기록 초기화</button>
+          <button type="button" class="btn btn-success" id="rule" data-toggle="modal" data-target="#ruleModal">리그 규칙</button>
+        </div>
         <div class="modal fade" id="ruleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -136,22 +138,26 @@
         <% } %>
         </table>
         <form class="inputForm form-inline" action="/" method="POST">
-          <div class="form-group mx-sm-1 mb-2">
-            <label for="homeName" class="sr-only">이름</label>
-            <input type="text" class="form-control" id="homeName" name="home" placeholder="이름" autocomplete="off">
-          </div>
-          <div class="form-group mx-sm-1 mb-2">
-            <label for="homeScore" class="sr-only">점수</label>
-            <input type="text" class="form-control" id="homeScore" name="homeScore" placeholder="점수" autocomplete="off">
+          <div class="left">
+            <div class="form-group mx-sm-1 mb-2">
+              <label for="homeName" class="sr-only">이름</label>
+              <input type="text" class="form-control" id="homeName" name="home" placeholder="이름" autocomplete="off">
+            </div>
+            <div class="form-group mx-sm-1 mb-2">
+              <label for="homeScore" class="sr-only">점수</label>
+              <input type="text" class="form-control" id="homeScore" name="homeScore" placeholder="점수" autocomplete="off">
+            </div>
           </div>
           <span>vs</span>
-          <div class="form-group mx-sm-1 mb-2">
-            <label for="awayName" class="sr-only">이름</label>
-            <input type="text" class="form-control" id="awayName" name="away" placeholder="이름" autocomplete="off">
-          </div>
-          <div class="form-group mx-sm-1 mb-2">
-            <label for="awayScore" class="sr-only">점수</label>
-            <input type="text" class="form-control" id="awayScore" name="awayScore" placeholder="점수" autocomplete="off">
+          <div class="right">
+            <div class="form-group mx-sm-1 mb-2">
+              <label for="awayName" class="sr-only">이름</label>
+              <input type="text" class="form-control" id="awayName" name="away" placeholder="이름" autocomplete="off">
+            </div>
+            <div class="form-group mx-sm-1 mb-2">
+              <label for="awayScore" class="sr-only">점수</label>
+              <input type="text" class="form-control" id="awayScore" name="awayScore" placeholder="점수" autocomplete="off">
+            </div>
           </div>
           <button type="submit" class="btn btn-info mb-2">경기 결과 등록</button>
         </form>
