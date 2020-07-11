@@ -26,13 +26,15 @@
         <button type="button" class="btn btn-danger" id="reset_player">선수 목록 초기화</button>
         <button type="button" class="btn btn-danger" id="reset_game">경기 기록 초기화</button>
         <table class="table" id="table">
-          <tr>
-            <th scope="col">이름</th>
-            <th scope="col">승리</th>
-            <th scope="col">패배</th>
-            <th scope="col">점수</th>
-            <th scope="col"></th>
-          </tr>
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">이름</th>
+              <th scope="col">승리</th>
+              <th scope="col">패배</th>
+              <th scope="col">점수</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
           <% if(players) { %>
             <% for(let i=0, j=players.length; i<j; i++) { %>
             <tr id="<%=i%>">
